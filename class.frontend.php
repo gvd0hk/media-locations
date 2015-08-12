@@ -54,8 +54,11 @@ if( !class_exists( 'jtFrontend' ) ) {
 			if ( $media->have_posts() ) {
 				while ( $media->have_posts() ) {
 					$media->the_post();
+					$media_info = get_post_custom( get_the_ID() );
 
+					if ( isset( $media_info['image_link'] ) ) echo '<a href="'. $media_info['image_link'][0] .'">';
 					echo wp_get_attachment_image( get_the_ID(), 'full' );
+					if ( isset( $media_info['image_link'] ) ) echo '</a>';
 				}
 				wp_reset_postdata();
 			} else {
@@ -69,7 +72,13 @@ if( !class_exists( 'jtFrontend' ) ) {
 			if ( !isset( $atts['location'] ) )
 				return;
 			
-			return $this->display_media( $atts['location'] );
+			$atts = shortcode_atts( array(
+				'location' =>  $atts['location'],
+				'fallback' => true,
+				'fallbackhome' => false
+			), $atts, 'medialocations' );
+			
+			return $this->display_media( $atts['location'], $atts['fallback'], $atts['fallbackhome'] );
 		}
 		
 	}

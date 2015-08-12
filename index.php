@@ -11,4 +11,4 @@
 
 require_once( 'class.taxonomies.php' );
 require_once( 'class.frontend.php' );
-
+require_once( 'class.backend.php' );

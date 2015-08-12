@@ -56,9 +56,9 @@ if( !class_exists( 'jtFrontend' ) ) {
 					$media->the_post();
 					$media_info = get_post_custom( get_the_ID() );
 
-					if ( isset( $media_info['image_link'] ) ) echo '<a href="'. $media_info['image_link'][0] .'">';
+					if ( isset( $media_info['image_link'] ) && $media_info['image_link'][0] ) echo '<a href="'. $media_info['image_link'][0] .'">';
 					echo wp_get_attachment_image( get_the_ID(), 'full' );
-					if ( isset( $media_info['image_link'] ) ) echo '</a>';
+					if ( isset( $media_info['image_link'] ) && $media_info['image_link'][0] ) echo '</a>';
 				}
 				wp_reset_postdata();
 			} else {
